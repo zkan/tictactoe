@@ -6,19 +6,19 @@ import tictactoe
 
 
 class TicTacToeTest(unittest.TestCase):
-    def test_print_board_should_print_board_to_stdout(self):
+    def test_display_board_should_print_board_to_stdout(self):
         with patch('sys.stdout', new=StringIO()) as fake_output:
             board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-            tictactoe.print_board(board)
-            expected = '         |         |         \n'
-            expected += '    1    |    2    |    3    \n'
-            expected += '_________|_________|_________\n'
-            expected += '         |         |         \n'
-            expected += '    4    |    5    |    6    \n'
-            expected += '_________|_________|_________\n'
-            expected += '         |         |         \n'
-            expected += '    7    |    8    |    9    \n'
-            expected += '         |         |         \n'
+            tictactoe.display_board(board)
+            expected = '     |     |     \n'
+            expected += '  1  |  2  |  3  \n'
+            expected += '_____|_____|_____\n'
+            expected += '     |     |     \n'
+            expected += '  4  |  5  |  6  \n'
+            expected += '_____|_____|_____\n'
+            expected += '     |     |     \n'
+            expected += '  7  |  8  |  9  \n'
+            expected += '     |     |     \n'
             self.assertEqual(fake_output.getvalue(), expected)
 
 
