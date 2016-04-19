@@ -1,2 +1,3 @@
-# tictactoe
-Tic Tac Toe using Reinforcement Learning
+# Tic Tac Toe using Minimax and Reinforcement Learning
+
+Just for fun!
