@@ -102,8 +102,12 @@ class QLearningPlayer(Player):
         return self.q.get((state, action))
 
     def move(self, board):
-        self.last_state = tuple(board)
         actions = self.available_moves(board)
+
+        if random.random() < self.epsilon:
+            self.last_move = random.choice(actions)
+            self.last_state = tuple(board)
+            return self.last_move
 
         qs = [self.getQ(self.last_state, each) for each in actions]
         maxQ = max(qs)
@@ -115,6 +119,7 @@ class QLearningPlayer(Player):
             i = qs.index(maxQ)
 
         self.last_move = actions[i]
+        self.last_state = tuple(board)
 
         return self.last_move
 
