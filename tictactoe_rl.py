@@ -70,6 +70,7 @@ class TicTacToe:
                     print 'Draw!'
                 break
 
+            other_player.reward(0, self.board)
             self.playerX_turn = not self.playerX_turn
 
 
