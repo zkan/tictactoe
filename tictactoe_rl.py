@@ -40,6 +40,8 @@ class TicTacToe:
         if not train:
             print '\nNew game!'
 
+        self.playerX.start_game()
+        self.playerO.start_game()
         while True:
             if self.playerX_turn:
                 player, char, other_player = self.playerX, 'X', self.playerO
@@ -75,6 +77,9 @@ class Player(object):
     def __init__(self):
         self.breed = 'human'
 
+    def start_game(self):
+        pass
+
     def move(self, board):
         return int(raw_input('Your move? '))
 
@@ -92,6 +97,8 @@ class QLearningPlayer(Player):
         self.epsilon = 0.2
         self.alpha = 0.1
         self.gamma = 0.9
+
+    def start_game(self):
         self.last_state = (' ',) * 9
         self.last_move = None
 
