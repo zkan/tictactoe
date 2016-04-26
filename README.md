@@ -7,3 +7,5 @@ Just for fun!
 วัน เวลา: จันทร์ 25 เม.ย. 59 19:00 - 21:00 น.
 
 สถานที่: Launchpad Co-working Space ใกล้ BTS สุรศักดิ์
+
+Special thanks to http://slides.com/fheisler/q-learning#/
