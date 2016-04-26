@@ -42,7 +42,6 @@ class TicTacToe:
 
         self.playerX.start_game()
         self.playerO.start_game()
-
         while True:
             if self.playerX_turn:
                 player, char, other_player = self.playerX, 'X', self.playerO
@@ -97,7 +96,7 @@ class QLearningPlayer(Player):
         self.breed = 'qlearner'
         self.q = {}
         self.epsilon = 0.2
-        self.alpha = 0.3
+        self.alpha = 0.1
         self.gamma = 0.9
         self.last_state = (' ',) * 9
         self.last_move = None
@@ -113,11 +112,11 @@ class QLearningPlayer(Player):
         return self.q.get((state, action))
 
     def move(self, board):
-        self.last_state = tuple(board)
         actions = self.available_moves(board)
 
         if random.random() < self.epsilon:
             self.last_move = random.choice(actions)
+            self.last_state = tuple(board)
             return self.last_move
 
         qs = [self.getQ(self.last_state, each) for each in actions]
@@ -130,6 +129,7 @@ class QLearningPlayer(Player):
             i = qs.index(maxQ)
 
         self.last_move = actions[i]
+        self.last_state = tuple(board)
 
         return self.last_move
 
@@ -149,7 +149,7 @@ class QLearningPlayer(Player):
 p1 = QLearningPlayer()
 p2 = QLearningPlayer()
 
-for i in xrange(0, 100000):
+for i in xrange(0, 20000):
     t = TicTacToe(p1, p2)
     t.play_game()
 
@@ -162,4 +162,3 @@ while True:
 
     for each in p1.q:
         print each, p1.q[each]
-
