@@ -41,9 +41,9 @@ class TicTacToe:
 
         while True:
             if self.playerX_turn:
-                player, char, other_player = self.playerX, 'X', self.playerO
+                player, char = self.playerX, 'X'
             else:
-                player, char, other_player = self.playerO, 'O', self.playerX
+                player, char = self.playerO, 'O'
 
             if player.breed == 'human':
                 self.display_board()
@@ -80,16 +80,58 @@ class MinimaxPlayer(Player):
         self.breed = 'minimax'
 
     def move(self, board):
-        pass
+        if len(self.available_moves(board)) == 9:
+            return random.choice([1, 3, 7, 9])
+
+        best_value = 0
+        for move in self.available_moves(board):
+            board[move - 1] = 'X'
+            value = self.min_value(board)
+            board[move - 1] = ' '
+            if value > best_value:
+                return move
+
+        return random.choice(self.available_moves(board))
 
     def terminal_test(self, board):
-        pass
+        for a, b, c in [(0, 1, 2), (3, 4, 5), (6, 7, 8),
+                        (0, 3, 6), (1, 4, 7), (2, 5, 8),
+                        (0, 4, 8), (2, 4, 6)]:
+            if 'X' == board[a] == board[b] == board[c]:
+                return (True, 1)
+            elif 'O' == board[a] == board[b] == board[c]:
+                return (True, -1)
+
+        if not any([space == ' ' for space in board]):
+            return (True, 0)
+
+        return (False, 0)
 
     def max_value(self, board):
-        pass
+        in_terminal_state, utility_value = self.terminal_test(board)
+        if in_terminal_state:
+            return utility_value
+
+        value = -100000
+        for move in self.available_moves(board):
+            board[move - 1] = 'X'
+            value = max(value, self.min_value(board))
+            board[move - 1] = ' '
+
+        return value
 
     def min_value(self, board):
-        pass
+        in_terminal_state, utility_value = self.terminal_test(board)
+        if in_terminal_state:
+            return utility_value
+
+        value = 100000
+        for move in self.available_moves(board):
+            board[move - 1] = 'O'
+            value = min(value, self.max_value(board))
+            board[move - 1] = ' '
+
+        return value
 
 
 p1 = MinimaxPlayer()
